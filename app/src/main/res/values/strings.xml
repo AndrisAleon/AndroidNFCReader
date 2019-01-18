@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Repozitorijs G2</string>
+    <string name="action_settings">Settings</string>
+    <string name="text1">Šī ir mana, Andra Tolmaņa, pirmā Android lietotne!</string>
+    <string name="text2">Sveiciens pasaulei no 2. grupas: Annijas Viktorijas Zaķes, Ditas Prūses un Andra Tolmaņa!</string>
+    <string name="buttonActivity2text">Aktivitāte 2</string>
+    <string name="buttonDialogsText">Dialogs</string>
+
+    <string name="title_activity_main">1. Aktvitāte</string>>
+    <string name="title_activity_secondary">2. Aktivitāte</string>>
+    <string name="buttonActivity1text">Aktivitāte 1</string>
+    <string name="activity2text">2. Aktivitāte</string>
+    <string name="blank"></string>
+    <string name="buttonSave">Saglabāt</string>
+    <string name="buttonRead">Nolasīt</string>
+    <string name="nfc">NFC</string>
+
+</resources>
