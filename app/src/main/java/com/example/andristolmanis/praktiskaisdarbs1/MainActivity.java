@@ -66,16 +66,17 @@ public class MainActivity extends AppCompatActivity {
         btnSave = (Button) findViewById(R.id.btnSave);
         sp = getSharedPreferences(USER_PREF, Context.MODE_PRIVATE);
 
-        // <----------------------------------------------------------------------------------------More NFC stuff
+        // <----------------------------------------------------------------------------------------More NFC stuf
         textt = (EditText) findViewById(R.id.textToBeSaved);
         btnNFC = (Button) findViewById(R.id.btnNFC);
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         context = this;
+
         if (nfcAdapter == null) {
             // Stop here, we definitely need NFC
             Toast.makeText(this, "Ierīcei nav NFC! Tas ir nepieceišams.", Toast.LENGTH_LONG).show();
-            finish();
-            return;
+            //finish();
+            //return;
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.NFC)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
                 getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
 
         // <----------------------------------------------------------------------------------------More NFC stuff ends here
         buttonDialog.setOnClickListener(new View.OnClickListener(){
@@ -155,28 +155,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent){
-        String action = intent.getAction();
-        if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(action) && nfcSearch == true){
-            getTagInfo(intent);
-            //Toast.makeText(MainActivity.this, "Oh snap, dude! I found some sauce!", Toast.LENGTH_SHORT).show();
-            textt.setText(nfcTagSerialNumber, EDITABLE);
-            nfcSearch = false;
-            // Te likt kodu, kas izpildas kad nfc ir nolasīts
-            // piemēram
-            Toast.makeText(MainActivity.this, "Darījums veikts ar iekārtu "+nfcTagSerialNumber, Toast.LENGTH_SHORT).show();
+        if (nfcAdapter != null) {
+            String action = intent.getAction();
+            if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(action) && nfcSearch == true){
+                getTagInfo(intent);
+                //Toast.makeText(MainActivity.this, "Oh snap, dude! I found some sauce!", Toast.LENGTH_SHORT).show();
+                textt.setText(nfcTagSerialNumber, EDITABLE);
+                nfcSearch = false;
+                // Te likt kodu, kas izpildas kad nfc ir nolasīts
+                // piemēram
+                Toast.makeText(MainActivity.this, "Darījums veikts ar iekārtu "+nfcTagSerialNumber, Toast.LENGTH_SHORT).show();
+            }
         }
     }
     private void getTagInfo(Intent intent) {
-        nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        nfcTagID = nfcTag.getId();
-        nfcTagSerialNumber = bytesToHex(nfcTagID);
+        if (nfcAdapter != null) {
+            nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            nfcTagID = nfcTag.getId();
+            nfcTagSerialNumber = bytesToHex(nfcTagID);
+        }
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
+        if (nfcAdapter != null) {
+            nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
+        }
     }
 
     @Override

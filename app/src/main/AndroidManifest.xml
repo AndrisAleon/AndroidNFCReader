@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.andristolmanis.praktiskaisdarbs1">
-    <!-- Nfc lietas -->
+    <!-- Nfc lietas-->
     <uses-permission android:name="android.permission.NFC" />
     <uses-sdk android:minSdkVersion="10"/>
-    <uses-feature android:name="android.hardware.nfc" android:required="true"/>
+    <uses-feature android:name="android.hardware.nfc" android:required="false"/>
     <!-- Nfc lietas beidzas, pagaidām -->
 
     <application
